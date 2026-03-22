@@ -56,4 +56,3 @@ const Table = ({ columns, data, onRowClick, loading = false }) => {
 };
 
 export default Table;
-

@@ -158,4 +158,3 @@ const TeamLeadInterns = () => {
 };
 
 export default TeamLeadInterns;
-

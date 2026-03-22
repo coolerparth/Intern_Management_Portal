@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom'; // ✅ ADDED
 import Card from '../../components/ui/Card';
 import Loader from '../../components/ui/Loader';
 import API from '../../services/api';
 
 const TeamLeadDashboard = () => {
+  const navigate = useNavigate(); // ✅ ADDED
+
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({
     myInterns: 12,
@@ -58,6 +61,7 @@ const TeamLeadDashboard = () => {
         </p>
       </motion.div>
 
+      {/* CARDS */}
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -69,27 +73,43 @@ const TeamLeadDashboard = () => {
         <Card title="Team Avg Score" value={stats.teamAvgScore} trend={8.1} icon="⭐" />
       </motion.div>
 
-      {/* Quick Stats */}
+      {/* LOWER SECTION */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        {/* LEADERBOARD */}
         <div className="lg:col-span-2">
           <div className="bg-white rounded-3xl shadow-xl p-8 border border-gray-100">
-            <h3 className="text-lg font-semibold text-gray-900 mb-6">Team Leaderboard (Top 5)</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-6">
+              Team Leaderboard (Top 5)
+            </h3>
+
             <div className="space-y-3">
               {[
                 { name: 'Alice Johnson', score: 4.9, tasks: 25 },
                 { name: 'Mike Chen', score: 4.7, tasks: 22 },
                 { name: 'Sarah Lee', score: 4.6, tasks: 20 }
               ].map((intern, idx) => (
-                <div key={idx} className="flex items-center p-4 bg-gray-50 rounded-xl hover:bg-emerald-50 transition-colors">
+                <div
+                  key={idx}
+                  className="flex items-center p-4 bg-gray-50 rounded-xl hover:bg-emerald-50 transition-colors"
+                >
                   <div className="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center mr-4">
-                    <span className="font-semibold text-emerald-700">#{idx + 1}</span>
+                    <span className="font-semibold text-emerald-700">
+                      #{idx + 1}
+                    </span>
                   </div>
+
                   <div className="flex-1">
                     <p className="font-semibold text-gray-900">{intern.name}</p>
-                    <p className="text-sm text-gray-600">{intern.tasks} tasks completed</p>
+                    <p className="text-sm text-gray-600">
+                      {intern.tasks} tasks completed
+                    </p>
                   </div>
+
                   <div className="text-right">
-                    <div className="text-2xl font-bold text-emerald-600">{intern.score}</div>
+                    <div className="text-2xl font-bold text-emerald-600">
+                      {intern.score}
+                    </div>
                     <div className="text-xs text-gray-500">/ 5.0</div>
                   </div>
                 </div>
@@ -97,21 +117,45 @@ const TeamLeadDashboard = () => {
             </div>
           </div>
         </div>
-        
+
+        {/* QUICK ACTIONS */}
         <div>
           <div className="bg-white rounded-3xl shadow-xl p-8 border border-gray-100 h-full">
-            <h3 className="text-lg font-semibold text-gray-900 mb-6">Quick Actions</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-6">
+              Quick Actions
+            </h3>
+
             <div className="space-y-3">
-              <button className="w-full btn-primary text-left py-3 px-4 rounded-xl">Assign New Task</button>
-              <button className="w-full btn-outline text-left py-3 px-4 rounded-xl">Review Reports</button>
-              <button className="w-full btn-primary text-left py-3 px-4 rounded-xl">View Leaderboard</button>
+              
+              {/* FIXED BUTTONS */}
+              <button
+                className="w-full btn-primary text-left py-3 px-4 rounded-xl"
+                onClick={() => navigate('/teamlead/tasks')}
+              >
+                Assign New Task
+              </button>
+
+              <button
+                className="w-full btn-outline text-left py-3 px-4 rounded-xl"
+                onClick={() => navigate('/teamlead/reports')}
+              >
+                Review Reports
+              </button>
+
+              <button
+                className="w-full btn-primary text-left py-3 px-4 rounded-xl"
+                onClick={() => navigate('/teamlead/leaderboard')}
+              >
+                View Leaderboard
+              </button>
+
             </div>
           </div>
         </div>
+
       </div>
     </div>
   );
 };
 
 export default TeamLeadDashboard;
-

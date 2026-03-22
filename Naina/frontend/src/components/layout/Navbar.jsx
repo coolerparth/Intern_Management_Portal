@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import Badge from "../ui/Badge";
@@ -9,47 +8,49 @@ const Navbar = () => {
 
   const getPageTitle = (pathname) => {
     const pathPart = pathname.split('/').pop();
+    if (pathPart === 'dashboard') return 'Overview';
     return pathPart ? pathPart.charAt(0).toUpperCase() + pathPart.slice(1) : 'Dashboard';
   };
 
   return (
-    <div className="bg-white/80 backdrop-blur-md shadow-lg border-b border-gray-200 sticky top-0 z-40">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Left: Logo/Title */}
-          <div className="flex items-center space-x-4">
-            <div className="w-10 h-10 bg-gradient-to-r from-emerald-500 to-green-600 rounded-2xl flex items-center justify-center shadow-lg">
-              <span className="text-white font-bold text-xl">I</span>
+    <div className="bg-white/80 backdrop-blur-md shadow-sm border-b border-slate-100 sticky top-0 z-40">
+      <div className="max-w-[1600px] mx-auto px-6">
+        <div className="flex justify-between items-center h-20">
+          {/* Left: Branding & Page Name */}
+          <div className="flex items-center space-x-6">
+            <div className="w-10 h-10 bg-green-600 rounded-xl flex items-center justify-center shadow-lg shadow-green-600/20">
+              <span className="text-white font-bold text-xl select-none">I</span>
             </div>
-            <div>
-<h1 className="text-xl font-bold text-gray-900 bg-gradient-to-r from-gray-900 to-gray-800 bg-clip-text">{getPageTitle(location.pathname)}</h1>
+            <div className="h-8 w-[1px] bg-slate-100 hidden md:block"></div>
+            <div className="hidden md:block">
+              <h1 className="text-lg font-bold text-slate-800 tracking-tight">
+                {getPageTitle(location.pathname)}
+              </h1>
               {user?.role && (
-                <p className="text-xs text-gray-500 capitalize">{user.role.replace(/^\w/, c => c.toUpperCase())} Dashboard</p>
+                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest leading-none mt-1">
+                  Portal Access / {user.role}
+                </p>
               )}
             </div>
           </div>
 
-          {/* Right: User Actions */}
-          <div className="flex items-center space-x-4">
-            {/* Notifications - Placeholder */}
-            <button className="px-3 py-2.5 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded-xl shadow-sm transition-all relative">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.142 6 8.466 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-              </svg>
-              <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">3</span>
-            </button>
+          {/* Right: User Perspective */}
+          <div className="flex items-center space-x-6">
+            <div className="hidden sm:flex items-center space-x-4 pr-6 border-r border-slate-100">
+               <div className="text-right">
+                  <p className="text-sm font-bold text-slate-900 leading-none">{user?.name || user?.email?.split('@')[0]}</p>
+                  <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wide mt-1">{user?.email}</p>
+               </div>
+               <div className="w-10 h-10 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 font-bold">
+                  {user?.name?.[0]?.toUpperCase() || 'U'}
+               </div>
+            </div>
 
-            {/* User Profile */}
             <div className="flex items-center space-x-3">
-              <div className="flex items-center space-x-2">
-                <Badge variant={user?.role === 'admin' ? 'success' : user?.role === 'teamlead' ? 'default' : 'warning'}>
-                  {user?.role?.toUpperCase()}
-                </Badge>
-                <span className="text-sm font-medium text-gray-900">{user?.name || user?.email}</span>
-              </div>
               <button
                 onClick={logout}
-                className="px-3 py-2.5 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-xl shadow-sm transition-all"
+                className="p-3 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all"
+                title="Logout"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -64,4 +65,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

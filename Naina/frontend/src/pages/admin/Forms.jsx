@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Modal from '../../components/ui/Modal';
 import Loader from '../../components/ui/Loader';
+import Badge from '../../components/ui/Badge';
 
 const AdminForms = () => {
   const [forms, setForms] = useState([

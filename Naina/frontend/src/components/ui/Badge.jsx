@@ -1,18 +1,17 @@
-// Placeholder - will fill in step 2
-const Badge = ({ children, variant = "default" }) => (
-  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-    variant === "success" ? "bg-green-100 text-green-800" :
-    variant === "warning" ? "bg-yellow-100 text-yellow-800" :
-    variant === "danger" ? "bg-red-100 text-red-800" :
-    "bg-gray-100 text-gray-800"
-  }`}>
-    {children}
-  </span>
-);
+const Badge = ({ children, variant = "default" }) => {
+  const styles = {
+    success: "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20",
+    warning: "bg-amber-500/10 text-amber-600 border border-amber-500/20",
+    danger: "bg-rose-500/10 text-rose-600 border border-rose-500/20",
+    default: "bg-slate-500/10 text-slate-600 border border-slate-500/20"
+  };
 
-Badge.defaultProps = {
-  variant: "default"
+  return (
+    <span className={`px-4 py-1.5 rounded-xl text-[10px] font-extrabold uppercase tracking-widest inline-flex items-center space-x-2 shadow-sm ${styles[variant] || styles.default}`}>
+       <span className="w-1.5 h-1.5 rounded-full bg-current opacity-70"></span>
+       <span>{children}</span>
+    </span>
+  );
 };
 
 export default Badge;
-

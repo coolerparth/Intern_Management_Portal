@@ -1,49 +1,42 @@
 @import "tailwindcss";
 :root {
-  --green: 139 92 246;
+  --green: 22 163 74; /* Standard green-600 */
   --green-dark: 21 128 61;
-  --bg-primary: 248 250 252;
-  --bg-secondary: 241 245 249;
-  --card: 255 255 255;
-  --text-primary: 30 41 59;
-  --text-secondary: 107 114 128;
-  --border: 229 231 235;
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-  --shadow-xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
-}
-
-* {
-  box-sizing: border-box;
+  --bg-primary: 255 255 255;
+  --bg-secondary: 248 250 252;
+  --text-primary: 15 23 42;
+  --text-secondary: 100 116 139;
 }
 
 body {
   margin: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  background: linear-gradient(135deg, rgb(var(--bg-primary)) 0%, rgb(var(--bg-secondary)) 100%);
-  color: rgb(var(--text-primary));
-  line-height: 1.6;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: #f8fafc;
+  color: #0f172a;
+  line-height: 1.5;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
-  line-height: 1.2;
-  margin-top: 0;
+  line-height: 1.25;
+  color: #0f172a;
+  margin: 0;
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white font-medium py-2.5 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 focus:ring-4 focus:ring-emerald-200;
+    @apply bg-green-600 hover:bg-green-700 text-white font-semibold py-2.5 px-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 active:scale-[0.98] disabled:opacity-50;
   }
   
   .btn-outline {
-    @apply border border-gray-300 text-gray-700 hover:bg-gray-50 font-medium py-2 px-4 rounded-xl transition-all duration-200;
+    @apply border border-slate-200 text-slate-600 hover:bg-slate-50 font-semibold py-2.5 px-6 rounded-xl transition-all duration-200 active:scale-[0.98];
   }
   
   .btn-danger {
-    @apply bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 focus:ring-4 focus:ring-red-200;
+    @apply bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 px-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 active:scale-[0.98];
+  }
+
+  .form-input {
+    @apply block w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-green-500/20 focus:border-green-500 transition-all duration-200;
   }
 }
-
